@@ -5,6 +5,9 @@ CREATE TABLE Cafe (
     contact_number VARCHAR2(20)        -- 카페 연락처
 );
 
+
+
+
 CREATE TABLE Menu (
     menu_id NUMBER PRIMARY KEY,        -- 메뉴의 고유 ID
     cafe_id NUMBER,                    -- 카페 ID (외래키)
