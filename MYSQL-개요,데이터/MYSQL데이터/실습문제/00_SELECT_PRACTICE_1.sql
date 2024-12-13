@@ -157,3 +157,9 @@ VALUES
 -- DELETE FORM 테이블명 WHERE = 테이블에서 하나의 행 삭제할 조건;
 -- Error Code: 1051. Unknown table 'khtdb.userprofile' 테이블이 존재하지 않기 때문에 삭제 불가
 DROP TABLE USERPROFILE;
+DELETE FROM USERPROFILE; -- 테이블 내 모든 데이터 삭제 하나의 데이터만 삭제하길 원한다면 WHERE
+SELECT * FROM USERPROFILE;
+
+
+-- 이광수 삭제 PRIMARY KEY 가 걸려있으면 프라이머리 키 까지 모두 작성
+DELETE FROM USERPROFILE WHERE USERNAME = '이광수' AND USER_ID = 17;
