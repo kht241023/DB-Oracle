@@ -1,0 +1,65 @@
+Microsoft Windows [Version 10.0.19045.5247]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\user1>mysql -u root -p
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 19
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE KHTDB;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> CREATE DATABASE KHTDB
+    -> ^C
+mysql> CREATE USER 'kht'@'%' IDENTIFIED BY 'KHT1234';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> GRANT ALL PRIVIEGES ON KHTDB.* TO 'KHT'@'%';^C
+mysql> CREATE USER 'kht'@'%' IDENTIFIED BY 'KHT1234';
+ERROR 1396 (HY000): Operation CREATE USER failed for 'kht'@'%'
+mysql> GRANT ALL PRIVILEGES ON KHTDB.* TO 'kht'@'%';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT CURRENT_DATE;
++--------------+
+| CURRENT_DATE |
++--------------+
+| 2024-12-13   |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURRENT_DATE FROM DAUL;
+ERROR 1046 (3D000): No database selected
+mysql> SELECT 4+1;
++-----+
+| 4+1 |
++-----+
+|   5 |
++-----+
+1 row in set (0.00 sec)
+
+mysql> CREATE DATABASE khtworkbook;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create user 'khttest'@'%' IDENTIFIED BY 'kht1234';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> GRANT ALL PRIVILEGES ON khtworkbook.* TO 'khttest'@'%';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
