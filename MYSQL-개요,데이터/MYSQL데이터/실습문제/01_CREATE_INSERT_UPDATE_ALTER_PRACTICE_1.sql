@@ -26,12 +26,12 @@
     FLUSH PRIVILEGES;
 
 
+-- DATABASE 접속 KHTSHOPPING 데이터 베이스 접속 후  PRODUCT 테이블 생성 하고 생성 확인하기
+USE KHTSHOPPING;
 
---------------------------------------------------------
-----------------      CREATE 문      -------------------
---------------------------------------------------------
----  KHTSHOPPING 데이터베이스
----  쇼핑몰 관련 데이터베이스로 제품, 주문, 재고 등을 관리
+
+--  KHTSHOPPING 데이터베이스
+--  쇼핑몰 관련 데이터베이스로 제품, 주문, 재고 등을 관리
 CREATE TABLE PRODUCT (
     PRODUCT_ID INT AUTO_INCREMENT PRIMARY KEY,   -- 제품 ID (기본키)
     NAME VARCHAR(100) NOT NULL,                 -- 제품 이름
@@ -42,7 +42,8 @@ CREATE TABLE PRODUCT (
     CREATED_AT DATETIME DEFAULT CURRENT_TIMESTAMP -- 등록 날짜
 );
 
-
+-- ORDER 는 SQL 예약어 ORDER BY 이름과 충돌나기 때문에 
+-- 백틱(``)으로 감싸서 이름 사용
 CREATE TABLE `ORDER` (
     ORDER_ID INT AUTO_INCREMENT PRIMARY KEY,    -- 주문 ID (기본키)
     USER_ID INT NOT NULL,                       -- 사용자 ID (외래키, KHTUSER.USER.USER_ID)
@@ -72,9 +73,10 @@ CREATE TABLE REVIEW (
     FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT(PRODUCT_ID)
 );
 
----  KHTUSER 데이터베이스
----  사용자 관련 데이터베이스로 회원 정보를 관리
+--  KHTUSER 데이터베이스
+--  사용자 관련 데이터베이스로 회원 정보를 관리
 
+USE KHTUSER;
 CREATE TABLE USER (
     USER_ID INT AUTO_INCREMENT PRIMARY KEY,     -- 사용자 ID (기본키)
     USERNAME VARCHAR(50) NOT NULL,              -- 사용자 이름
@@ -103,9 +105,10 @@ CREATE TABLE USER_ACTIVITY (
     DETAILS TEXT                                -- 상세 내용
 );
 
----  KHTCAFE 데이터베이스
---- 카페 관련 데이터베이스로 메뉴, 주문, 테이블 등을 관리
+--  KHTCAFE 데이터베이스
+-- 카페 관련 데이터베이스로 메뉴, 주문, 테이블 등을 관리
 
+USE KHTCAFE;
 
 CREATE TABLE MENU (
     MENU_ID INT AUTO_INCREMENT PRIMARY KEY,     -- 메뉴 ID (기본키)
@@ -147,13 +150,9 @@ CREATE TABLE CAFE_ORDER_ITEM (
 
 
 
---------------------------------------------------------
-----------------      INSERT 문      -------------------
---------------------------------------------------------
 
-
---- KHTSHOPPING 데이터베이스
-
+-- KHTSHOPPING 데이터베이스
+USE KHTSHOPPING;
 INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, STOCK, CATEGORY) VALUES
 ('한국산 유기농 쌀', '100% 유기농 인증 받은 고품질 쌀', 20000, 50, '식품'),
 ('한정판 고급 텀블러', '스타일리시한 디자인과 실용성 겸비', 15000, 100, '주방용품'),
@@ -183,9 +182,10 @@ INSERT INTO REVIEW (PRODUCT_ID, USER_ID, RATING, COMMENT) VALUES
 (2, 4, 3, '텀블러는 예쁘지만 약간 작아서 아쉽네요.'),
 (5, 5, 4, '의자가 정말 편하고 허리가 안 아파요!');
 
+COMMIT;
 
---- KHTUSER 데이터베이스
-
+-- KHTUSER 데이터베이스
+USE KHTUSER;
 INSERT INTO USER (USERNAME, EMAIL, PASSWORD_HASH, PHONE, STATUS) VALUES
 ('홍길동', 'hong@example.com', 'hashed_password_1', '010-1234-5678', 'ACTIVE'),
 ('김영희', 'kim@example.com', 'hashed_password_2', '010-2345-6789', 'ACTIVE'),
@@ -207,7 +207,12 @@ INSERT INTO USER_ACTIVITY (USER_ID, ACTIVITY_TYPE, DETAILS) VALUES
 (4, 'UPDATE_PROFILE', '박민수가 프로필 정보를 수정했습니다.'),
 (5, 'LOGIN', '최수지가 로그인에 성공했습니다.');
 
---- KHTCAFE 데이터베이스
+
+COMMIT;
+
+-- KHTCAFE 데이터베이스
+
+USE KHTCAFE;
 
 INSERT INTO MENU (NAME, DESCRIPTION, PRICE, CATEGORY) VALUES
 ('아메리카노', '진한 에스프레소와 깔끔한 물의 조화', 4000, 'COFFEE'),
@@ -240,14 +245,164 @@ INSERT INTO CAFE_ORDER_ITEM (ORDER_ID, MENU_ID, QUANTITY, PRICE) VALUES
 (4, 4, 3, 3500),
 (5, 5, 1, 5000);
 
+COMMIT ;
+
+USE KHTCAFE;
+SELECT * FROM MENU;
+
+USE KHTSHOPPING;
+SELECT * FROM PRODUCT;
+
+USE KHTUSER;
+SELECT * FROM USER;
 
 
 
+
+
+/****************************************
+************* SELECT 문  사용 *************
+****************************************/
+
+-- KHTUSER 데이터 베이스 -- 
+-- USER TABLE 홍길동의 이메일주소와 전화번호 조회
+USE KHTUSER;
+SELECT EMAIL, PHONE
+FROM USER
+WHERE USERNAME = '홍길동';
+
+-- KHTSHOPPING 데이터 베이스 -- 
+-- `ORDER` 테이블 주문상태가 PENDING 인 주문 수를 조회 오직 주문수alter
+USE KHTSHOPPING;
+SELECT COUNT(*) 
+FROM `ORDER`
+WHERE STATUS = 'PENDING';
+
+
+
+-- KHTCAFE 데이터 베이스 -- 
+-- TABLES 테이블 AVAILABLE 상태인 테이블 번호와 수용 인원(CAPACITY) 조회
+USE KHTCAFE;
+SELECT TABLE_NUMBER, CAPACITY
+FROM TABLES
+WHERE STATUS = 'AVAILABLE';
+-- MENU 테이블에서 가장 비싼 메뉴의 이름과 가격 조회
+SELECT NAME, PRICE
+FROM MENU
+ORDER BY PRICE DESC
+LIMIT 1;
+
+-- CAFE_ORDER 테이블에서 SATUS 가 PREPARING 인 주문의 테이블 번호와 주문 금액 조회
+SELECT TABLE_ID, TOTAL_AMOUNT
+FROM CAFE_ORDER
+WHERE STATUS = 'PREPARING';
+
+-- KHTUSER 데이터 베이스에서 LOGIN 활동을 한 사용자들의 이름과 세부활동 정보 확인
+-- JOIN ON
+USE KHTUSER;
+SELECT U.USERNAME, A.DETAILS
+FROM USER_ACTIVITY A
+JOIN USER U ON A.USER_ID = U.USER_ID
+WHERE A.ACTIVITY_TYPE = 'LOGIN';
+
+
+SELECT * FROM USER;
+
+-- 홍길동 hong123 으로 변경 회원정보에서 비밀번호 변경하겠다 작성
+-- UPDATE 테이블명 SET 컬럼명 = 수정할 내용  WHERE 조건과 일치하는 행의;
+-- UPDATE 문을 SQL 에서 직접적으로 실행할 때 문제가 되는 것을 방지하기 위해 SAFE 모드 생성
+-- 테이블을 삭제할 때도 마찬가지로 SAFE 모드이므로 SAFE MODE 해지 후 실행 가능
+SET SQL_SAFE_UPDATES = 0;
+
+-- SAFE MODE 재설정 
+SET SQL_SAFE_UPDATES = 1;
+
+UPDATE USER 
+SET PASSWORD_HASH = 'hong123' 
+WHERE USERNAME = '홍길동';
+
+SELECT * FROM USER;
+
+/*
+김영희 kim7890
+이철수 chulsoo5678
+박민수 park245
+최수지 choi9876
+*/
+UPDATE USER SET PASSWORD_HASH = 'kim7890' WHERE USERNAME = '김영희';
+UPDATE USER SET PASSWORD_HASH = 'chulsoo5678' WHERE USERNAME = '이철수';
+UPDATE USER SET PASSWORD_HASH = 'park245' WHERE USERNAME = '박민수';
+UPDATE USER SET PASSWORD_HASH = 'choi9876' WHERE USERNAME = '최수지';
+COMMIT;
+
+USE KHTCAFE;
+SELECT * FROM TABLES;
+
+UPDATE TABLES
+SET STATUS = '사용 가능'
+WHERE TABLE_NUMBER = 1;
+
+-- 테이블 자체 수정 tables
+-- STATUS 안에는  AVAILABLE   OCCUPIED 삽입 가능 OK
+-- enum('AVAILABLE','OCCUPIED')
+-- CREATE TABLE SET  - CHECKBOX
+-- CREATE TABLE ENUM - RADIO
+
+-- 테이블자체 컬럼에 존재하는 규칙 수정
+-- ALTER TABLE 수정할 테이블명칭 MODIFY COLUMN 컬럼명 컬럼명의 규칙
+ALTER TABLE TABLES
+MODIFY COLUMN STATUS ENUM('AVAILABLE', 'OCCUPIED', '사용 가능', '사용중');
+
+UPDATE  TABLES
+SET STATUS='사용중'
+WHERE TABLE_NUMBER = 4;
+
+SELECT * FROM TABLES;
+
+COMMIT;
+
+ALTER TABLE TABLES
+MODIFY COLUMN STATUS ENUM('사용 가능', '사용중');
+
+-- CAFE_ORDER 준비 중 완료 대기 중 취소
+ALTER TABLE CAFE_ORDER
+MODIFY COLUMN  STATUS ENUM('PENDING', 'PREPARING', 'COMPLETED', 'CANCELLED','준비 중','완료','대기 중','취소');
+
+
+UPDATE CAFE_ORDER
+SET STATUS = '준비 중', TOTAL_AMOUNT = 8500
+WHERE TABLE_ID = 2;
+
+UPDATE CAFE_ORDER
+SET STATUS = '완료', TOTAL_AMOUNT = 13500
+WHERE TABLE_ID = 4;  
+
+UPDATE CAFE_ORDER
+SET STATUS = '대기 중', TOTAL_AMOUNT = 5000
+WHERE TABLE_ID = 1;
+
+UPDATE CAFE_ORDER
+SET STATUS = '완료', TOTAL_AMOUNT = 15000
+WHERE TABLE_ID = 3;
+
+UPDATE CAFE_ORDER
+SET STATUS = '취소', TOTAL_AMOUNT = 4000
+WHERE TABLE_ID = 5;
+
+
+
+
+-- 테이블 삭제하고 다시 만들기
+-- 종료 = 0  시작 = 1
+-- 외래키 체크 종료
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS 테이블명칭;
+
+
+-- 만약에 MENU 테이블이 잘못되어 삭제하길 원한다면
+-- DROP TABLE IF EXISTS MENU;
+
+-- 테이블 삭제 후 외래키 체크 시작 설정
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS REVIEW;
-DROP TABLE IF EXISTS ORDER_ITEM;
-DROP TABLE IF EXISTS `ORDER`;
-DROP TABLE IF EXISTS PRODUCT;
 
-SET FOREIGN_KEY_CHECKS = 1;
