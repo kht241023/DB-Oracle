@@ -18,7 +18,6 @@ CREATE TABLE student(
 	studentage     NUMBER
 );
 
-
 -- 2. 트리거 생성 = 데이터 삽입 시 시퀀스를 자동으로 활용할 수 있도록 설정
 -- 트리거를 이용해서 테이블에 새로운 숫자값이 삽입될 때 시퀀스에 저장된 번호를 호출해서 ID값을 자동 설정
 -- 무엇을 만들거나 수정하거나 삭제할떼 OR REPLACE 사용하면 새로 만들거나 존재하면 덮어쓰기
@@ -26,18 +25,18 @@ CREATE OR REPLACE TRIGGER trg_user
 BEFORE INSERT ON student
 FOR EACH ROW
 BEGIN
-	-- 시퀀스를 사용해서 student 테이블 내에 studentid 번호를 자동으로 생성
 	:NEW.studentid := seq_user.NEXTVAL;
 END;
--- student 테이블에 학생 정보를 저장하려한다.
--- studentid를 명시하지 않고, 자동으로 증가하는 값으로 학생을 저장하기
--- INSERT INTO 테이블명칭 (studentname, studentage) VALUES ('홍길동', 11);
--- 강철수 12, 박길자 13 오말숙 14 안정미 15 1,2,3,4 번호 순으로 저장
+
 INSERT INTO STUDENT (studentname, studentage) VALUES ('강철수', 12);
 INSERT INTO STUDENT (studentname, studentage) VALUES ('박길자', 13);
 INSERT INTO STUDENT (studentname, studentage) VALUES ('오말숙', 14);
 INSERT INTO STUDENT (studentname, studentage) VALUES ('안정미', 15);
 -- SELECT 문 활용해서 저장이 잘 되었는지 확인
+SELECT * FROM STUDENT;
+
+-- 1~4번에 기록된 유저 삭제
+--
 
 
 SELECT TRIGGER_NAME, STATUS
@@ -65,18 +64,11 @@ END;
 -- 데이터 삽입 (studentid 자동 생성)
 INSERT INTO student (studentname, studentage) VALUES ('홍길동', 20);
 INSERT INTO student (studentname, studentage) VALUES ('김철수', 25);
-INSERT INTO student (studentid, studentname, studentage)
-VALUES (seq_std.NEXTVAL, '홍길동', 20);
 
-INSERT INTO student (studentid, studentname, studentage)
-VALUES (seq_std.NEXTVAL, '김철수', 25);
 -- 결과 확인
 SELECT * FROM student;
 
+COMMIT;
 
 
 DELETE FROM STUDENT;
-
-
-COMMIT;
-
