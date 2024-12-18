@@ -54,3 +54,20 @@ Durability(지속성)  : 트랜잭션이 완료된 후의 결과는 영구적으
 	 		은행에서 5만 원 송금 후 서비스 점검으로 1시간 후 계좌 확인을 했을 때
 			송금내역이 존재해야함
 */
+
+SELECT * FROM khtuser.user;
+
+-- user phone 앞에 작성된 kor) 제거
+SET sql_safe_updates = 0;                                -- 안전모드 종료
+
+START Transaction; 	                                    -- savepoint 를 사용하기 위해서는 start transaction 시작 수동 제어
+savepoint sp1;			                                    -- 임시로 되돌릴 위치이름 sp1 설정
+USE khtuser;			                                    -- khtuser db로 접속 
+UPDATE user SET phone = substring_index(phone, ')', 1);  -- 수정할 update 작성
+SELECT * FROM user;									            -- 제대로 수정했는지 확인
+
+ROLLBACK TO sp1;		                                    -- 원하는대로 결과 수정 X sp1 임시저장한 위치로 되돌리기 
+UPDATE user SET phone = substring_index(phone, ')', -1); -- 수정
+SELECT * FROM user;		                              	-- 올바르게 수정됐는지 확인
+
+COMMIT;						                                 -- 수정 결과 저장
