@@ -41,3 +41,5 @@ CREATE TABLE 테이블명(
 
 
 */
+
+-- CREATE를 생성할 때 제약조건은 15_제약조건.sql 참조
