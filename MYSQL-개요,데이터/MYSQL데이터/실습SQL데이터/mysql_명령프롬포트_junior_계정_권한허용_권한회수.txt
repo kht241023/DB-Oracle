@@ -1,0 +1,342 @@
+Microsoft Windows [Version 10.0.19045.5247]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\user1>mysql -u junior -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 213
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> EXIT
+Bye
+
+C:\Users\user1>mysql -u root -p
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 214
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| khtcafe            |
+| khtdb              |
+| khtshopping        |
+| khtuser            |
+| khtworkbook        |
+| mysql              |
+| performance_schema |
+| sys                |
+| testdb             |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> USE information_schema;
+Database changed
+mysql> SHOW TABLES;
++---------------------------------------+
+| Tables_in_information_schema          |
++---------------------------------------+
+| ADMINISTRABLE_ROLE_AUTHORIZATIONS     |
+| APPLICABLE_ROLES                      |
+| CHARACTER_SETS                        |
+| CHECK_CONSTRAINTS                     |
+| COLLATION_CHARACTER_SET_APPLICABILITY |
+| COLLATIONS                            |
+| COLUMN_PRIVILEGES                     |
+| COLUMN_STATISTICS                     |
+| COLUMNS                               |
+| COLUMNS_EXTENSIONS                    |
+| ENABLED_ROLES                         |
+| ENGINES                               |
+| EVENTS                                |
+| FILES                                 |
+| INNODB_BUFFER_PAGE                    |
+| INNODB_BUFFER_PAGE_LRU                |
+| INNODB_BUFFER_POOL_STATS              |
+| INNODB_CACHED_INDEXES                 |
+| INNODB_CMP                            |
+| INNODB_CMP_PER_INDEX                  |
+| INNODB_CMP_PER_INDEX_RESET            |
+| INNODB_CMP_RESET                      |
+| INNODB_CMPMEM                         |
+| INNODB_CMPMEM_RESET                   |
+| INNODB_COLUMNS                        |
+| INNODB_DATAFILES                      |
+| INNODB_FIELDS                         |
+| INNODB_FOREIGN                        |
+| INNODB_FOREIGN_COLS                   |
+| INNODB_FT_BEING_DELETED               |
+| INNODB_FT_CONFIG                      |
+| INNODB_FT_DEFAULT_STOPWORD            |
+| INNODB_FT_DELETED                     |
+| INNODB_FT_INDEX_CACHE                 |
+| INNODB_FT_INDEX_TABLE                 |
+| INNODB_INDEXES                        |
+| INNODB_METRICS                        |
+| INNODB_SESSION_TEMP_TABLESPACES       |
+| INNODB_TABLES                         |
+| INNODB_TABLESPACES                    |
+| INNODB_TABLESPACES_BRIEF              |
+| INNODB_TABLESTATS                     |
+| INNODB_TEMP_TABLE_INFO                |
+| INNODB_TRX                            |
+| INNODB_VIRTUAL                        |
+| KEY_COLUMN_USAGE                      |
+| KEYWORDS                              |
+| OPTIMIZER_TRACE                       |
+| PARAMETERS                            |
+| PARTITIONS                            |
+| PLUGINS                               |
+| PROCESSLIST                           |
+| PROFILING                             |
+| REFERENTIAL_CONSTRAINTS               |
+| RESOURCE_GROUPS                       |
+| ROLE_COLUMN_GRANTS                    |
+| ROLE_ROUTINE_GRANTS                   |
+| ROLE_TABLE_GRANTS                     |
+| ROUTINES                              |
+| SCHEMA_PRIVILEGES                     |
+| SCHEMATA                              |
+| SCHEMATA_EXTENSIONS                   |
+| ST_GEOMETRY_COLUMNS                   |
+| ST_SPATIAL_REFERENCE_SYSTEMS          |
+| ST_UNITS_OF_MEASURE                   |
+| STATISTICS                            |
+| TABLE_CONSTRAINTS                     |
+| TABLE_CONSTRAINTS_EXTENSIONS          |
+| TABLE_PRIVILEGES                      |
+| TABLES                                |
+| TABLES_EXTENSIONS                     |
+| TABLESPACES                           |
+| TABLESPACES_EXTENSIONS                |
+| TRIGGERS                              |
+| USER_ATTRIBUTES                       |
+| USER_PRIVILEGES                       |
+| VIEW_ROUTINE_USAGE                    |
+| VIEW_TABLE_USAGE                      |
+| VIEWS                                 |
++---------------------------------------+
+79 rows in set (0.00 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| khtcafe            |
+| khtdb              |
+| khtshopping        |
+| khtuser            |
+| khtworkbook        |
+| mysql              |
+| performance_schema |
+| sys                |
+| testdb             |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> GRANT ALL PRIVILEGES ON KHTCAFE.* TO 'junior'@'%';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> GRANT ALL PRIVILEGES ON KHTUSER.* TO 'junior'@'%';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> EXIT
+Bye
+
+C:\Users\user1>mysql -u junior -p
+Enter password: **********
+ERROR 1045 (28000): Access denied for user 'junior'@'localhost' (using password: YES)
+
+C:\Users\user1>mysql -u junior -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 216
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| khtcafe            |
+| khtuser            |
+| performance_schema |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> use khtvafe;
+ERROR 1044 (42000): Access denied for user 'junior'@'%' to database 'khtvafe'
+mysql> use khtcafel
+ERROR 1044 (42000): Access denied for user 'junior'@'%' to database 'khtcafel'
+mysql> use khtcafe;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_khtcafe |
++-------------------+
+| cafe_order        |
+| cafe_order_item   |
+| menu              |
+| tables            |
++-------------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from menu;
++---------+---------------+------------------------------------------+---------+----------+
+| MENU_ID | NAME          | DESCRIPTION                              | PRICE   | CATEGORY |
++---------+---------------+------------------------------------------+---------+----------+
+|       1 | 아메리카노    | 진한 에스프레소와 깔끔한 물의 조화       | 4000.00 | COFFEE   |
+|       2 | 카페라떼      | 부드러운 우유와 에스프레소               | 4500.00 | COFFEE   |
+|       3 | 유자차        | 달콤하면서도 상큼한 전통차               | 5000.00 | TEA      |
+|       4 | 초코 브라우니 | 진한 초콜릿의 풍미를 느낄 수 있는 디저트 | 3500.00 | DESSERT  |
+|       5 | 치즈 케이크   | 입안에서 살살 녹는 크림치즈 케이크       | 5000.00 | DESSERT  |
++---------+---------------+------------------------------------------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from tables;
++----------+--------------+----------+-----------+
+| TABLE_ID | TABLE_NUMBER | CAPACITY | STATUS    |
++----------+--------------+----------+-----------+
+|        1 |            1 |        4 | 사용 가능 |
+|        2 |            2 |        2 | 사용중    |
+|        3 |            3 |        6 | 사용 가능 |
+|        4 |            4 |        4 | 사용중    |
+|        5 |            5 |        2 | 사용 가능 |
++----------+--------------+----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from cafe_order;
++----------+----------+---------------------+--------------+---------+
+| ORDER_ID | TABLE_ID | ORDER_DATE          | TOTAL_AMOUNT | STATUS  |
++----------+----------+---------------------+--------------+---------+
+|        1 |        2 | 2024-12-16 10:38:28 |      8500.00 | 준비 중 |
+|        2 |        4 | 2024-12-16 10:38:28 |     13500.00 | 완료    |
+|        3 |        1 | 2024-12-16 10:38:28 |      5000.00 | 대기 중 |
+|        4 |        3 | 2024-12-16 10:38:28 |     15000.00 | 완료    |
+|        5 |        5 | 2024-12-16 10:38:28 |      4000.00 | 취소    |
++----------+----------+---------------------+--------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select *
+    -> from cafe_order
+    -> WHERE STATUS = '완료';
++----------+----------+---------------------+--------------+--------+
+| ORDER_ID | TABLE_ID | ORDER_DATE          | TOTAL_AMOUNT | STATUS |
++----------+----------+---------------------+--------------+--------+
+|        2 |        4 | 2024-12-16 10:38:28 |     13500.00 | 완료   |
+|        4 |        3 | 2024-12-16 10:38:28 |     15000.00 | 완료   |
++----------+----------+---------------------+--------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> selcte *
+    -> from cafe_xxxxxxx
+    -> where
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selcte *
+from cafe_xxxxxxx
+where' at line 1
+mysql> select * from cafe_order;
++----------+----------+---------------------+--------------+---------+
+| ORDER_ID | TABLE_ID | ORDER_DATE          | TOTAL_AMOUNT | STATUS  |
++----------+----------+---------------------+--------------+---------+
+|        1 |        2 | 2024-12-16 10:38:28 |      8500.00 | 준비 중 |
+|        2 |        4 | 2024-12-16 10:38:28 |     13500.00 | 완료    |
+|        3 |        1 | 2024-12-16 10:38:28 |      5000.00 | 대기 중 |
+|        4 |        3 | 2024-12-16 10:38:28 |     15000.00 | 완료    |
+|        5 |        5 | 2024-12-16 10:38:28 |      4000.00 | 취소    |
++----------+----------+---------------------+--------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> *
+    -> ;
+ERROR 1096 (HY000): No tables used
+mysql> SELECT *
+    -> FROM cafe_order
+    -> WHERE status = '환불완료';
+Empty set (0.00 sec)
+
+mysql> select *
+    -> from cafe_order
+    -> where status = '완료';
++----------+----------+---------------------+--------------+--------+
+| ORDER_ID | TABLE_ID | ORDER_DATE          | TOTAL_AMOUNT | STATUS |
++----------+----------+---------------------+--------------+--------+
+|        2 |        4 | 2024-12-16 10:38:28 |     13500.00 | 완료   |
+|        4 |        3 | 2024-12-16 10:38:28 |     15000.00 | 완료   |
++----------+----------+---------------------+--------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\user1>mysql -u root -p
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 217
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> REVOKE ALL PRIVILLEGES ON KHTUSER.* FROM 'junior'@'%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIVILLEGES ON KHTUSER.* FROM 'junior'@'%'' at line 1
+mysql> REVOKE ALL PRIVILEGES ON KHUSER.* FROM 'JUNIOR'@'%';
+ERROR 1141 (42000): There is no such grant defined for user 'JUNIOR' on host '%'
+mysql> REVOKE ALL PRIVILEGES ON KHUSER.* FROM 'junior'@'%';
+ERROR 1141 (42000): There is no such grant defined for user 'junior' on host '%'
+mysql> REVOKE ALL PRIVILEGES ON KHTUSER.* FROM 'junior'@'%';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> REVOKE ALL PRIVILEGES ON KHTCAFE.* FROM 'junior'@'%';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
